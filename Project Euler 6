@@ -1,0 +1,8 @@
+#include <iostream>
+
+int main() {
+	int number = 100;
+	long long int sumOfSquares = number * (number + 1) * (2 * number + 1) / 6;
+	long long int squareOfsum = number * (number + 1) * number * (number + 1) / 4;
+	std::cout << squareOfsum - sumOfSquares << std::endl;
+}
