@@ -1,0 +1,89 @@
+#include <iostream>
+#include <cmath>
+
+
+long long int* primes(int n, int* lengthAddress) {
+    int l_ = (n - 1) / 2;
+    bool* pri = new bool[l_];
+
+    for (int a = 0; a < l_; a++) {
+        pri[a] = true;
+    }
+
+    for (int a = 0; a <= (sqrt(n) - 1) / 2; a++) {
+        if (*(pri + a)) {
+            for (int i = 2 * a * a + 6 * a + 3; i < l_; i += 2 * a + 3) {
+                pri[i] = false;
+            }
+        }
+    }
+
+    int count = 1;
+    for (int a = 0; a < l_; a++) {
+        if (pri[a]) { ++count; }
+    }
+    *lengthAddress = count;
+    
+    long long int* primeList = new long long int[count];
+    primeList[0] = 2;
+
+    int i = 1;
+    for (int a = 0; a < l_; a++) {
+        if (pri[a]) {
+            primeList[i] = 2 * a + 3;
+            ++i;
+        }
+    }
+    delete[] pri;
+
+    return primeList;
+}
+
+long long int power(long long int a, long long int b, long long int m) {
+    long long int product = 1;
+    while (b) {
+        if (b % 2) product = (product * a) % m;
+        a = (a * a) % m;
+        b /= 2;
+    }
+    return product;
+}
+
+void print(long long int* pointer, int length) {
+    for (int a = 0; a < length; a++) {
+        std::cout << pointer[a] << ' ';
+    }
+    std::cout << std::endl;
+}
+
+int main()
+{
+    int number = 100000000;
+    int length;
+    long long int* listOfPrimes = primes(number, &length);
+    long long int* powersOfPrimes = new long long int[length];
+
+
+    // listing the powers of primes
+    for (int i = 0; i < length; i++) {
+        long long int prime = listOfPrimes[i];
+
+        powersOfPrimes[i] = number / prime;
+        prime *= listOfPrimes[i];
+
+        while (prime <= number) {
+            powersOfPrimes[i] += number / prime;
+            prime *= listOfPrimes[i];
+        }
+    }
+    //print(listOfPrimes, length);
+    //print(powersOfPrimes, length);
+
+    long long int total = 1;
+    long long int mod = 1000000009;
+    for (int i = 0; i < length; i++) {
+        total = (total + (total * power(listOfPrimes[i], 2*powersOfPrimes[i], mod)) % mod) % mod;
+    }
+
+    std::cout << total % mod << std::endl;
+}
