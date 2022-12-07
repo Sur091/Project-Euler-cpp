@@ -1,0 +1,25 @@
+#include <iostream>
+#include <cmath>
+
+int inversed(int number) {
+	int inverse = 0;
+	while (number) {
+		inverse = inverse * 10 + number % 10;
+		number /= 10;
+	}
+	return inverse;
+
+}
+
+int main() {
+	int maximum = 0, nDigit = 3;
+	for (int a = pow(10, nDigit - 1); a < pow(10, nDigit); a++){
+		for (int b = a; b < pow(10, nDigit); b++){
+			// if it is palindrome and maximum
+			if (a*b == inversed(a*b) && a*b > maximum) {
+				maximum = a*b;
+			}
+		}
+	}
+	std::cout << maximum << std::endl;
+}
