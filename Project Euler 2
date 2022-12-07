@@ -1,0 +1,20 @@
+#include <iostream>
+
+
+
+int main() {
+	int fibonacci1 = 1;
+	int fibonacci2 = 2;
+	int sum = 0;
+	while (fibonacci1 < 4000000) { 
+		if (fibonacci1 % 2 == 0) {
+			sum += fibonacci1;
+		}
+		if (fibonacci2 < 4000000 && fibonacci2 % 2 == 0) {
+			sum += fibonacci2;
+		}
+		fibonacci1 += fibonacci2;
+		fibonacci2 += fibonacci1;
+	}
+	std::cout << sum << std::endl;
+}
