@@ -1,0 +1,12 @@
+#include <iostream>
+#include <cmath>
+
+int main() {
+	long long int number = 600851475143;
+	for (int a = 2; a < sqrt(number); a++) {
+		while (number % a == 0) {
+			number /= a;
+		}
+	}
+	std::cout << number << std::endl;
+}
