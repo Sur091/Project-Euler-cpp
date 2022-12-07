@@ -1,0 +1,15 @@
+#include <iostream>
+
+
+int arithmeticSum(int n, int a, int d) {
+	int terms = n / d;
+	return (2*a + (terms -1) * d) * terms / 2;
+	
+}
+
+int main() {
+	int number = 1000;
+	number--;
+	int sum = arithmeticSum(number, 3, 3) + arithmeticSum(number, 5, 5) - arithmeticSum(number, 15, 15);
+	std::cout << sum << std::endl;
+}
